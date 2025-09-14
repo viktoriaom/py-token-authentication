@@ -10,4 +10,10 @@ class IsAdminOrIfAuthenticatedReadOnly(permissions.BasePermission):
             and request.user.is_authenticated
         ) or (
             request.user and request.user.is_staff
+        ) or (
+            request.method == "POST"
+            and request.user
+            and request.user.is_authenticated
+            and view.__class__.__name__ == "OrderViewSet"
+            and view.action == "create"
         )
