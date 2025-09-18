@@ -140,6 +140,7 @@ class OrderPagination(PageNumberPagination):
 
 
 class OrderViewSet(ListModelMixin, CreateModelMixin, GenericViewSet):
+    allow_non_admin_create = True
     queryset = Order.objects.prefetch_related(
         "tickets__movie_session__movie", "tickets__movie_session__cinema_hall"
     )
